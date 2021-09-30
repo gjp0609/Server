@@ -2,13 +2,16 @@ package commons
 
 import (
 	"encoding/json"
-	"log"
+	"onysakura.fun/Server/commons/logrus"
 	"os"
 )
 
+var log = logrus.GetLogger()
+
 type Configuration struct {
-	Port  int
-	Notes Notes
+	Port       int
+	SQLitePath string
+	Notes      Notes
 }
 
 type Notes struct {
@@ -21,13 +24,13 @@ func init() {
 	configFile := "config.json"
 	stat, err := os.Stat(configFile)
 	if err != nil || stat.IsDir() {
-		log.Println("Can't find config file!", err)
+		log.Warn("Can't find config file! Use default config.", err)
 		Configs = Configuration{
-			Port:  8080,
-			Notes: Notes{Path: "./"},
+			Port:       8080,
+			SQLitePath: "./data.db",
+			Notes:      Notes{Path: "./"},
 		}
 	} else {
-		log.Println(os.Stat(configFile))
 		file, _ := os.Open(configFile)
 		defer func(file *os.File) {
 			_ = file.Close()
@@ -36,13 +39,9 @@ func init() {
 		configuration := Configuration{}
 		err = decoder.Decode(&configuration)
 		if err != nil {
-			log.Println("error:", err)
+			log.Panic("error: ", err)
 		}
 		Configs = configuration
-		log.Println("configs: ", Configs)
+		log.Info("configs: ", Configs)
 	}
-}
-
-func GetConfig() Configuration {
-	return Configs
 }

@@ -1,17 +1,19 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"strconv"
-
 	"onysakura.fun/Server/commons"
+	"onysakura.fun/Server/commons/logrus"
 	"onysakura.fun/Server/rest"
+	"strconv"
 )
 
+var log = logrus.GetLogger()
+
+type Han struct {
+}
+
 func main() {
-	http.HandleFunc("/", rest.Index)
 	port := commons.Configs.Port
-	log.Println("Server will start at http://127.0.0.1:" + strconv.Itoa(port))
-	_ = http.ListenAndServe(":"+strconv.Itoa(port), nil)
+	log.Info("Server will start at http://127.0.0.1:" + strconv.Itoa(port))
+	rest.Run(port)
 }
