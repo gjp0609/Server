@@ -1,10 +1,17 @@
 package rest
 
 import (
+	"fmt"
 	"net/http"
+	"onysakura.fun/Server/commons"
+	"onysakura.fun/Server/commons/logrus"
 	"onysakura.fun/Server/rest/notes"
+	"onysakura.fun/Server/rest/user"
 	"strconv"
+	"strings"
 )
+
+var log = logrus.GetLogger()
 
 type Router struct {
 	path    string
@@ -13,13 +20,42 @@ type Router struct {
 
 var Routers = []Router{
 	{"/", Index},
-	{"/notes/", notes.Notes},
+	{"/user/login/", user.Login},
+	{"/notes/add/", notes.Notes},
+	{"/notes/", ServeFile},
 }
 
 func Run(port int) {
 	mux := http.NewServeMux()
 	for i := range Routers {
-		mux.HandleFunc(Routers[i].path, Routers[i].handler)
+		mux.HandleFunc(Routers[i].path, handleInterceptor(Routers[i].handler))
 	}
 	_ = http.ListenAndServe(":"+strconv.Itoa(port), mux)
+}
+
+func ServeFile(writer http.ResponseWriter, request *http.Request) {
+	authorization := request.Header.Get("Authorization")
+	_, err := user.Auth(authorization)
+	if err != nil {
+		writer.WriteHeader(401)
+	} else {
+		path := commons.Configs.Notes.Path + request.URL.Path
+		path = strings.Replace(path, "/notes/", "", 1)
+		log.Info(path)
+		http.ServeFile(writer, request, path)
+	}
+}
+
+func handleInterceptor(h http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Debug(fmt.Sprintf("%7s:path: %s", r.Method, r.URL.Path))
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "*")
+		if strings.EqualFold(r.Method, "OPTIONS") {
+			w.WriteHeader(200)
+			log.Info("op")
+			return
+		}
+		h(w, r)
+	}
 }

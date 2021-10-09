@@ -1,0 +1,21 @@
+POST {{url}}/user/login/
+Content-Type: application/json
+
+{
+  "username": "me",
+  "password": "E10ADC3949BA59ABBE56E057F20F883E"
+}
+
+### notes
+POST {{url}}/notes/
+Content-Type: application/json
+Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM3Njg5NzMsImlhdCI6MTYzMzc2NzE3MywidXNlcm5hbWUiOiJtZSJ9.NplJjTa_ryLsqIxmWLvY5kJ9hqxrnzKV6i4AH6jSMbr_vRrvC_x0dHie_oGPiZfP2xRvs_cFD8Bg1NBQYe3Ufg
+
+{
+  "username": "me",
+  "password": "E10ADC3949BA59ABBE56E057F20F883E"
+}
+
+### note file
+GET {{url}}/note/Quick/test.md
+Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM3NzMyMzcsImlhdCI6MTYzMzc3MTQzNywidXNlcm5hbWUiOiJtZSJ9.SqJERnoFKVTvs6ST9gMelrYibUNztGcTsAwSd2tiw1nw6IKy-uuM3edx7ndK2N80NF6H6QZ7C15qpJd3hGqH4w

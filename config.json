@@ -1,7 +1,8 @@
 {
-  "port": 33000,
+  "Port": 33000,
   "SQLitePath": "./data.db",
+  "PrivateKey": "MIIBOgIBAAJBANNjZKJ218M9rwPsNmiZixSgUjZOtFwmPigQEEQj9JO8h/DFTWRR0EI6qnDBl3gYJAvP0YByXeZAWSnrP8RzzXkCAwEAAQJBAJ9H135rmiytgACurlimyZujKg9two1k65T4dalChnoCSMGSaok1rAni81LlAt150/FAZ9nwS8+96hpBsa4Ni9kCIQDoznA4isyXvVkRpkxD9fE03MkcgCjBDjM9h+HOGehH+wIhAOhysz6StHD0h91V4zA5Gtkas+wIkijwLec4mAbyuMIbAiBk3u2o0hsLtDMffpqU5793VCKfgrglze1Nv86K6pbGeQIgf/kOB+ga4Yku98NeVeFKj7Zs0gkR9unsS71TrZeZ8nsCIG4QUyU9VT0bMUJJO2khnvwpHpEiy0lAqqsxlLunZPUi",
   "Notes": {
-    "Path": "C:/Files/Workspace/Mine/Others/Notes"
+    "Path": "/mnt/c/Files/Workspace/Mine/Others/Notes/"
   }
 }

@@ -14,6 +14,6 @@ type Han struct {
 
 func main() {
 	port := commons.Configs.Port
-	log.Info("Server will start at http://127.0.0.1:" + strconv.Itoa(port))
+	log.Info("server will start at http://127.0.0.1:" + strconv.Itoa(port))
 	rest.Run(port)
 }

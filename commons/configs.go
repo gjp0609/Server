@@ -11,6 +11,7 @@ var log = logrus.GetLogger()
 type Configuration struct {
 	Port       int
 	SQLitePath string
+	PrivateKey string
 	Notes      Notes
 }
 
