@@ -17,5 +17,5 @@ Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM3Njg5NzMsImlh
 }
 
 ### note file
-GET {{url}}/note/Quick/test.md
-Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM3NzMyMzcsImlhdCI6MTYzMzc3MTQzNywidXNlcm5hbWUiOiJtZSJ9.SqJERnoFKVTvs6ST9gMelrYibUNztGcTsAwSd2tiw1nw6IKy-uuM3edx7ndK2N80NF6H6QZ7C15qpJd3hGqH4w
+GET {{url}}/notes/Quick/test.md
+Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM5MjQ0MzEsImlhdCI6MTYzMzkyMjYzMSwidXNlcm5hbWUiOiJtZSJ9.OzCgfnVY-UdCuy6TmMwKokJH0SVDUOOdjSWCV7GiwfSk8eRKesVlezwG8_7llBP-a3yjdM_kYEHAGip9drr12Q

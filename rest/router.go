@@ -41,7 +41,6 @@ func ServeFile(writer http.ResponseWriter, request *http.Request) {
 	} else {
 		path := commons.Configs.Notes.Path + request.URL.Path
 		path = strings.Replace(path, "/notes/", "", 1)
-		log.Info(path)
 		http.ServeFile(writer, request, path)
 	}
 }
@@ -53,7 +52,6 @@ func handleInterceptor(h http.HandlerFunc) http.HandlerFunc {
 		w.Header().Set("Access-Control-Allow-Headers", "*")
 		if strings.EqualFold(r.Method, "OPTIONS") {
 			w.WriteHeader(200)
-			log.Info("op")
 			return
 		}
 		h(w, r)

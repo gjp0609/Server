@@ -9,9 +9,6 @@ import (
 
 var log = logrus.GetLogger()
 
-type Han struct {
-}
-
 func main() {
 	port := commons.Configs.Port
 	log.Info("server will start at http://127.0.0.1:" + strconv.Itoa(port))

@@ -22,7 +22,7 @@ type Notes struct {
 var Configs Configuration
 
 func init() {
-	configFile := "config.json"
+	configFile := "./config.json"
 	stat, err := os.Stat(configFile)
 	if err != nil || stat.IsDir() {
 		log.Warn("Can't find config file! Use default config.", err)

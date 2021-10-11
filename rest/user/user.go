@@ -52,7 +52,7 @@ func Login(writer http.ResponseWriter, request *http.Request) {
 		returnMsg.Msg = "decode param error"
 		return
 	}
-	log.Info("loginUser: ", loginUser)
+	log.Info("login user: ", loginUser)
 
 	user := GetUser(loginUser.Username)
 	log.Info("User: ", user)
@@ -106,7 +106,7 @@ func Auth(authorization string) (*string, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Info("parse: ", parse)
+	log.Debug("parse: ", parse)
 	if !parse.Valid {
 		return nil, errors.New("errrr")
 	}
