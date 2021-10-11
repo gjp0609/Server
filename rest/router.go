@@ -49,12 +49,6 @@ func ServeFile(writer http.ResponseWriter, request *http.Request) {
 func handleInterceptor(h http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Debug(fmt.Sprintf("%7s:path: %s", r.Method, r.URL.Path))
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Headers", "*")
-		if strings.EqualFold(r.Method, "OPTIONS") {
-			w.WriteHeader(200)
-			return
-		}
 		h(w, r)
 	}
 }
