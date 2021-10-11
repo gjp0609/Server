@@ -41,6 +41,7 @@ func ServeFile(writer http.ResponseWriter, request *http.Request) {
 	} else {
 		path := commons.Configs.Notes.Path + request.URL.Path
 		path = strings.Replace(path, "/notes/", "", 1)
+		log.Debug("serve file path: ", path)
 		http.ServeFile(writer, request, path)
 	}
 }
