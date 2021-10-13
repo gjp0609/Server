@@ -14,3 +14,9 @@ func main() {
 	log.Info("server will start at http://127.0.0.1:" + strconv.Itoa(port))
 	rest.Run(port)
 }
+
+func init() {
+	//privateKey, _ := rsa.GenerateKey(rand.Reader, 512)
+	//var privateKeyBase64 = base64.StdEncoding.EncodeToString(x509.MarshalPKCS1PrivateKey(privateKey))
+	//log.Info("privateKey: ", privateKeyBase64)
+}

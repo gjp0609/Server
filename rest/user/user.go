@@ -43,8 +43,6 @@ func Login(writer http.ResponseWriter, request *http.Request) {
 		}
 		_, _ = writer.Write(returnMsg.ToString())
 	}()
-	//var username = *getParam("username", request, "anonymous")
-	//var password = *getParam("password", request, "")
 	var loginUser User
 	decoder := json.NewDecoder(request.Body)
 	err = decoder.Decode(&loginUser)
@@ -66,9 +64,6 @@ func Login(writer http.ResponseWriter, request *http.Request) {
 	}
 	var privateKey *rsa.PrivateKey
 	privateKey, err = loadPrivateKeyBase64(commons.Configs.PrivateKey)
-	//privateKey, err = rsa.GenerateKey(rand.Reader, 512)
-	//var privateKeyBase64 = base64.StdEncoding.EncodeToString(x509.MarshalPKCS1PrivateKey(privateKey))
-	//log.Info("privateKey: ", privateKeyBase64)
 	if err != nil {
 		returnMsg.Msg = "load private key error"
 		return

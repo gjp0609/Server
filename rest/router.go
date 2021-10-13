@@ -25,6 +25,7 @@ var Routers = []Router{
 	{"/test/post/", test.Post},
 	{"/user/login/", user.Login},
 	{"/notes/add/", notes.Notes},
+	{"/notes/update/", notes.UpdateNotes},
 	{"/notes/", ServeNotes},
 }
 

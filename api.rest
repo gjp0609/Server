@@ -7,20 +7,17 @@ Content-Type: application/json
   "password": "E10ADC3949BA59ABBE56E057F20F883E"
 }
 
-### notes
-POST {{url}}/notes/
-Content-Type: application/json
-Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM3Njg5NzMsImlhdCI6MTYzMzc2NzE3MywidXNlcm5hbWUiOiJtZSJ9.NplJjTa_ryLsqIxmWLvY5kJ9hqxrnzKV6i4AH6jSMbr_vRrvC_x0dHie_oGPiZfP2xRvs_cFD8Bg1NBQYe3Ufg
-
-{
-  "username": "me",
-  "password": "E10ADC3949BA59ABBE56E057F20F883E"
-}
-
 ### note file
 GET {{url}}/notes/Quick/test.md
 Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM5MjQ0MzEsImlhdCI6MTYzMzkyMjYzMSwidXNlcm5hbWUiOiJtZSJ9.OzCgfnVY-UdCuy6TmMwKokJH0SVDUOOdjSWCV7GiwfSk8eRKesVlezwG8_7llBP-a3yjdM_kYEHAGip9drr12Q
 
+### update Notes
+POST {{url}}/notes/update/
+Content-Type: application/json
+
+{
+  "commits": []
+}
 
 ### Test Get
 GET {{url}}/test/get/?a=qwe&b=zxc&c=Test%E4%B8%AD%E6%96%87
