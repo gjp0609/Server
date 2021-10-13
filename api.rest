@@ -1,3 +1,4 @@
+### POST user login
 POST {{url}}/user/login/
 Content-Type: application/json
 
@@ -19,3 +20,27 @@ Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM3Njg5NzMsImlh
 ### note file
 GET {{url}}/notes/Quick/test.md
 Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzM5MjQ0MzEsImlhdCI6MTYzMzkyMjYzMSwidXNlcm5hbWUiOiJtZSJ9.OzCgfnVY-UdCuy6TmMwKokJH0SVDUOOdjSWCV7GiwfSk8eRKesVlezwG8_7llBP-a3yjdM_kYEHAGip9drr12Q
+
+
+### Test Get
+GET {{url}}/test/get/?a=qwe&b=zxc&c=Test%E4%B8%AD%E6%96%87
+
+### Test Post
+GET {{url}}/test/post/
+Content-Type: application/json
+
+{
+  "str": "aaa",
+  "num": 123,
+  "boo": true,
+  "list": [
+    "aaa",
+    123,
+    false
+  ],
+  "map": {
+    "str": "aaa",
+    "num": 123,
+    "boo": true
+  }
+}

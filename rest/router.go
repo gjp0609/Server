@@ -6,6 +6,7 @@ import (
 	"onysakura.fun/Server/commons"
 	"onysakura.fun/Server/commons/logrus"
 	"onysakura.fun/Server/rest/notes"
+	"onysakura.fun/Server/rest/test"
 	"onysakura.fun/Server/rest/user"
 	"strconv"
 	"strings"
@@ -20,9 +21,11 @@ type Router struct {
 
 var Routers = []Router{
 	{"/", Index},
+	{"/test/get/", test.Get},
+	{"/test/post/", test.Post},
 	{"/user/login/", user.Login},
 	{"/notes/add/", notes.Notes},
-	{"/notes/", ServeFile},
+	{"/notes/", ServeNotes},
 }
 
 func Run(port int) {
@@ -33,7 +36,20 @@ func Run(port int) {
 	_ = http.ListenAndServe(":"+strconv.Itoa(port), mux)
 }
 
-func ServeFile(writer http.ResponseWriter, request *http.Request) {
+func Index(writer http.ResponseWriter, request *http.Request) {
+	var name string
+	if request.URL.Query()["name"] != nil {
+		name = request.URL.Query()["name"][0]
+	} else {
+		name = "anonymous"
+	}
+	_, err := writer.Write([]byte("Hello " + name))
+	if err != nil {
+		return
+	}
+}
+
+func ServeNotes(writer http.ResponseWriter, request *http.Request) {
 	authorization := request.Header.Get("Authorization")
 	_, err := user.Auth(authorization)
 	if err != nil {
