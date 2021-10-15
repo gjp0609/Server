@@ -34,7 +34,7 @@ type MyCustomClaims struct {
 }
 
 func Login(writer http.ResponseWriter, request *http.Request) {
-	var returnMsg = data.Msg{Code: -1}
+	var returnMsg = data.NewErrorMsg()
 	var err error
 	defer func() {
 		if err != nil {
@@ -87,7 +87,7 @@ func Login(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 	log.Info("Token: ", tokenStr)
-	returnMsg = data.Msg{Code: 1, Msg: "ok", Data: tokenStr}
+	returnMsg = data.Msg{Code: data.MsgOk, Msg: "ok", Data: tokenStr}
 }
 
 func Auth(authorization string) (*string, error) {
@@ -101,7 +101,7 @@ func Auth(authorization string) (*string, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Debug("parse: ", parse)
+	//log.Debug("parse: ", parse)
 	if !parse.Valid {
 		return nil, errors.New("errrr")
 	}
@@ -114,7 +114,7 @@ func GetUser(username string) *User {
 	var err error
 	defer func() {
 		if err != nil {
-			log.Warning(err)
+			log.Warn("get user fail: ", err)
 		}
 	}()
 	stmt, err := sqlite.DB.Prepare("select * from user where username = ?")
@@ -129,7 +129,6 @@ func GetUser(username string) *User {
 		var user User
 		err = rows.Scan(&user.Id, &user.Username, &user.Password)
 		if err != nil {
-			log.Warn("get user info fail: ", err)
 			return nil
 		}
 		return &user

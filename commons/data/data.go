@@ -8,14 +8,21 @@ import (
 var log = logrus.GetLogger()
 
 type Msg struct {
-	Code int
+	Code MsgCode
 	Msg  string
 	Data interface {
 	}
 }
 
-func NewErrorMsg(msg string) Msg {
-	return Msg{Code: -1, Msg: msg}
+type MsgCode int
+
+const (
+	MsgFail MsgCode = -1
+	MsgOk   MsgCode = 1
+)
+
+func NewErrorMsg() Msg {
+	return Msg{Code: MsgFail}
 }
 
 func (msg Msg) ToString() []byte {
