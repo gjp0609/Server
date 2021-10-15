@@ -34,16 +34,21 @@ const (
 
 func CleanContents() {
 	var err error
+	var stmt *sql.Stmt
 	defer func() {
+		_ = stmt.Close()
 		if err != nil {
 			log.Warn("clear note contents fail: ", err)
 		}
 	}()
-	stmt, err := sqlite.DB.Prepare("DELETE FROM note_contents")
+	stmt, err = sqlite.DB.Prepare("DELETE FROM note_contents")
 	if err != nil {
 		return
 	}
 	_, err = stmt.Exec()
+	if err != nil {
+		return
+	}
 	stmt, err = sqlite.DB.Prepare("DELETE FROM sqlite_sequence WHERE name = 'note_contents'")
 	if err != nil {
 		return
@@ -53,16 +58,19 @@ func CleanContents() {
 
 func GetList() interface{} {
 	var err error
+	var stmt *sql.Stmt
 	defer func() {
+		_ = stmt.Close()
 		if err != nil {
 			log.Warn("get note list fail: ", err)
 		}
 	}()
-	stmt, err := sqlite.DB.Prepare("select id, title, level, type, parent, status from note_contents")
+	stmt, err = sqlite.DB.Prepare("select id, title, level, type, parent, status from note_contents")
 	if err != nil {
 		return nil
 	}
 	rows, err := stmt.Query()
+	defer rows.Close()
 	if err != nil {
 		return nil
 	}
@@ -80,12 +88,14 @@ func GetList() interface{} {
 
 func SaveNoteContents(noteContents NoteContents) int64 {
 	var err error
+	var stmt *sql.Stmt
 	defer func() {
+		_ = stmt.Close()
 		if err != nil {
 			log.Warn("saveToDatabase note contents fail: ", err)
 		}
 	}()
-	stmt, err := sqlite.DB.Prepare("insert into note_contents(title, level, type, parent, content, status) VALUES (?, ?, ?, ?, ?, ?)")
+	stmt, err = sqlite.DB.Prepare("insert into note_contents(title, level, type, parent, content, status) VALUES (?, ?, ?, ?, ?, ?)")
 	if err != nil {
 		return 0
 	}
@@ -102,17 +112,20 @@ func SaveNoteContents(noteContents NoteContents) int64 {
 
 func GetNoteContent(id string) (*[]byte, *NoteStatus) {
 	var err error
+	var stmt *sql.Stmt
 	defer func() {
+		_ = stmt.Close()
 		if err != nil {
 			log.Warn("get note fail: ", err)
 		}
 	}()
 	var rows *sql.Rows
-	stmt, err := sqlite.DB.Prepare("select content, status from note_contents where id = ?")
+	stmt, err = sqlite.DB.Prepare("select content, status from note_contents where id = ?")
 	if err != nil {
 		return nil, nil
 	}
 	rows, err = stmt.Query(id)
+	defer rows.Close()
 	if err != nil {
 		return nil, nil
 	}
@@ -129,17 +142,20 @@ func GetNoteContent(id string) (*[]byte, *NoteStatus) {
 }
 func GetNoteImage(parent string, title string) *[]byte {
 	var err error
+	var stmt *sql.Stmt
 	defer func() {
+		_ = stmt.Close()
 		if err != nil {
 			log.Warn("get note fail: ", err)
 		}
 	}()
 	var rows *sql.Rows
-	stmt, err := sqlite.DB.Prepare("select content from note_contents where parent = (select id from note_contents where parent = ? and title = 'images') and title = ?")
+	stmt, err = sqlite.DB.Prepare("select content from note_contents where parent = (select id from note_contents where parent = ? and title = 'images') and title = ?")
 	if err != nil {
 		return nil
 	}
 	rows, err = stmt.Query(parent, title)
+	defer rows.Close()
 	if err != nil {
 		return nil
 	}
