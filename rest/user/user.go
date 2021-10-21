@@ -4,6 +4,7 @@ import (
 	md5 "crypto/md5"
 	"crypto/rsa"
 	"crypto/x509"
+	"database/sql"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
@@ -112,16 +113,19 @@ func Auth(authorization string) (*string, error) {
 
 func GetUser(username string) *User {
 	var err error
+	var stmt *sql.Stmt
 	defer func() {
+		_ = stmt.Close()
 		if err != nil {
 			log.Warn("get user fail: ", err)
 		}
 	}()
-	stmt, err := sqlite.DB.Prepare("select * from user where username = ?")
+	stmt, err = sqlite.DB.Prepare("select * from user where username = ?")
 	if err != nil {
 		return nil
 	}
 	rows, err := stmt.Query(username)
+	defer rows.Close()
 	if err != nil {
 		return nil
 	}
